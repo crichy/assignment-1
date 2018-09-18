@@ -1,0 +1,15 @@
+---
+title: "Assignment 1"
+author: "Célia Richy"
+date: "18/09/2018"
+output: html_document
+---
+## Exercise 1 {#css_id}
+
+## Exercise 2 {#css_id}
+
+## Exercise 3 {#css_id}
+
+## Exercise 4 {#css_id}
+
+## Exercise 5 {#css_id}
