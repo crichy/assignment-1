@@ -4,11 +4,89 @@ author: "Célia Richy"
 date: "18/09/2018"
 output: html_document
 ---
+
 ## Exercise 1 {#css_id}
+
+Maitriser GIT et Rstudio va prendre un peu de temps.
 
 ## Exercise 2 {#css_id}
 
+```{r}
+possible_outcomes <- c(0, 1, 2, 3, 4, 5)
+outcome_probabilities <- c(0.1, 0.5, 0.2, 0.1, 0.05, 0.05)
+n_data_points <- 400
+set.seed(1)
+fake_data_points <- sample(possible_outcomes,
+                           n_data_points,
+                           replace=T,
+                           prob=outcome_probabilities)
+set.seed(NULL)
+fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
+```
+```{r}
+ggplot2::ggplot(fake_data_set, ggplot2::aes(x=`Fake measurement`)) +
+  ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
+```
+
+##### Statement 2:
+
+Cette ligne de code crée aussi (comme statement 1) une variable associée à un vecteur de valeurs numériques (remarquable grâce au signe <-).
+Si le nom donné à cette variable est consistent avec les données numériques du vecteur (soit 0.1, 0.5, 0.2, etc), alors il s'agit des probabilités de résultats qu'on pourrait obtenir. Je présume que chacune de ces valeurs numériques est liée aux valeurs numériques de 'possible_outcomes', puisqu'il y a six valeurs dans les deux vecteurs. En revanche je n'arrive pas à déterminer de quelles probabilités il peut s'agir sans contexte.
+
+##### Statement 3:
+
+Il s'agit ici d'une nouvelle variable créée, avec le nom de la variable à gauche "n_data_points" et la valeur numérique à droite de '<-' "400". Il s'agit peut être du nombre total d'objets, puisque lorsqu'on print le fake_data_points, sur le nombre total des 9 lignes, on trouve bien 400 résultats (47*8+24). Il y a alors peut être 400 variations possibles.
+
+##### Statement 4:
+
+Selon les différents sites que j'ai consultés, il y a plusieurs types d'explications, mais quelque chose est commun à toutes: il s'agit d'une fonction qui permet de fixer (ou "faire germer", comme son nom l'indique) les résultats qui sortent selon le "random number generator" que je présume être la fonction sample.
+Je suppose donc que cette fonction fera toujours apparaitre les mêmes résultats de la fonction 'sample' ci-dessous (associée à la variable 'fake_data_points'), c'est à dire que ce sont toujours les mêmes objets qui seront sélectionnés par la fonction sample.
+En revanche, je ne peux pas déterminer à quoi sert la valeur '1' dans set.seed(1). Je ne sais pas si cette valeur a un effet particulier sur les objets sélectionnés, ou s'il s'agit simplement de donner un nom au hasard. Sur ce sujet, les sources consultées semblent dire qu'il s'agit de choix individuels. Mais alors, pourquoi utiliser des valeurs différentes, je ne comprends pas.
+Par ailleurs, il semble set.seed(NULL) permette de redonner une valeur par défaut à set.seed, mais je ne comprends pas vraiment à quoi cela peut servir dans ce code.
+
+https://stackoverflow.com/questions/13605271/reasons-for-using-the-set-seed-function
+
+https://stats.stackexchange.com/questions/86285/random-number-set-seedn-in-r
+
+https://www.rdocumentation.org/packages/simEd/versions/1.0.3/topics/set.seed
+
+https://abcdr.thinkr.fr/comment-fixer-et-reproduire-laleatoire-set-seed/
+
+##### Statement 5:
+
+La fonction 'sample()' est assignée à la variable 'fake_data_points'.
+Le premier site donné en source ci-dessous décrit la fonction sample comme prenant un échantillon de données (dans la variable 'possible_outcomes' contenant le vecteur c(0,1,2,3,4,5)) d'une taille spécifiée (ici la variable 'n_data_points, de la valeur 400), avec remise, et selon les probabilités données par la variables 'outcome_probabilities'. Replace=TRUE correspond au tirage 'avec remise', c'est à dire que l'échantillon va être créé 400 fois. Par ailleurs, il est possible, toujours grâce à 'replace=true' qu'un objet soit tiré plusieurs fois (Good, 2005:15). Quand on run ces lignes de codes, il y a effectivement 400 occurrences aléatoires de la variable 'possible_outcomes'. Le tirage suit alors la loi de probabilités 'outcome_probabilities', mais je ne suis pas sûre de comprendre ce que fait réellement ce vecteur. En supprimant la ligne de code 'prob=outcome_probabilities', puis en runnant la nouvelle fonction 'sample()', et en appelant le nouveau 'fake_data_points' dans la console, un tirage différent du premier apparait. Je fais donc l'hypothèse que chacune des valeurs numériques contenues dans 'outcome_probabilities' correspond de manière individuelle à un objet du vecteur associé à 'possible_outcomes'. Ainsi il serait plus probable pour 1 d'être tiré, puis 2, puis 0 et 3, et enfin 4 et 5.
+
+https://www.rdocumentation.org/packages/base/versions/3.5.1/topics/sample
+
+https://pbil.univ-lyon1.fr/R/pdf/tdr111.pdf
+
+##### Statement 6 :
+
+Ce statement est le moins limpide pour moi. Je m'explique:
+
+Tout d'abord, grâce la syntaxe qui a été décrite dans les statements précédents, il est maintenant clair qu'il s'agit d'une fonction assignée à la variable 'fake_data_set'.
+
+Dans la rubrique HELP de R, tibble() et data_frame() sont décrits comme correspondants à la même fonction. Or, en supprimant 'tibble::', et en runnant cette nouvelle ligne de code 'fake_data_set <- data_frame(`Fake measurement`=fake_data_points)', la console indique qu'il est impossible de trouver la fonction 'data_frame'. En cherchant ce que pouvait vouloir dire '::' il apparait que cet opérateur permet d'avoir accès à des variables dans un namespace. Je fais donc l'hypothèse que l'opérateur '::' permet de trouver la fonction data_frame dans le package 'tibble' (sur certains sites, 'tibble' est considéré comme un package). Mais la notion de namespace n'est pas claire du tout. Sur les différents sites consultés, namespace est décrit comme un package permettant de faire des liens entre des espaces et des noms. Cette définition est floue, mais je suppose donc qu'ici l'espace est 'tibble' et le nom 'data_frame', sans être vraiment sûre de ce que cela signifie. Mais ceci explique pourquoi si l'on supprime 'tibble::', 'data_frame' ne peut pas être trouvée. Peut être que cette fonction est stockée dans le package 'tibble' et il faut donc indiquer le chemin. Cette fonction crée donc une liste de 400 rangs, montrant les résultats de la fonction 'sample()' liée à la variable 'fake_data_points'. En effet, le titre 'fake measurement' a été donné à cette liste, et a été lié  à la variable 'fake_data_points' par le biais de l'opérateur '='. Ainsi, en appelant la variable 'fake_data_set' dans la console, nous retrouvons les résultats de 'fake_data_points' sous forme de liste nommée 'fake measurement'.
+
+https://www.rdocumentation.org/packages/base/versions/3.5.1/topics/Syntax
+
+http://r-pkgs.had.co.nz/namespace.html
+
+http://r4ds.had.co.nz/tibbles.html
+
 ## Exercise 3 {#css_id}
+
+
+```{r}
+source("functions.R")
+```
+
+```{r}
+print(sum_column(iris, "Sepal.Length"))
+print(sum_column(iris, "Sepal.Species"))
+print(sum_column(warpbreaks, "breaks"))
+```
 
 ## Exercise 4 {#css_id}
 
