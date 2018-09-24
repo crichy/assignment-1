@@ -18,11 +18,10 @@ sum_column <- function(d, var) {
     # d; again, you should try and find a way to test
     # this out for yourself to verify that it's true,
     # but that's not part of the homework
-    result <- sum(d[[var]])
+    result <- sum(x)
   }
     # You will need to do a bit of research in order to figure out how
     # to test whether a vector contains numbers.
   # YOUR CODE HERE: return the result
   return(result)
 }
-
