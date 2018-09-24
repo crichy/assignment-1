@@ -80,11 +80,9 @@ http://r4ds.had.co.nz/tibbles.html
 
 ```{r}
 source("functions.R")
-```
 
-```{r}
 print(sum_column(iris, "Sepal.Length"))
-print(sum_column(iris, "Sepal.Species"))
+print(sum_column(iris, "Species"))
 print(sum_column(warpbreaks, "breaks"))
 ```
 
