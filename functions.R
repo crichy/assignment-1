@@ -27,3 +27,59 @@ sum_column <- function(d, var) {
   # YOUR CODE HERE: return the result
   return(result)
 }
+
+# Sum values in a vector.
+#
+# ARGUMENTS:
+# x: a vector
+#
+# RETURN VALUE:
+# if the vector contains numbers, returns the sum of
+# all values; otherwise, returns NULL
+
+# création de la fonction my_sum qui va ajouter les valeurs au vecteur
+  my_sum <- function(x) {
+# Vérifier que x n'est pas vide  
+  if (!is.null(x)){
+# Vérifier que x contient des chiffres 
+  if (is.numeric(x)){
+#création de la variable result, dans laquelle on inscrit ce à quoi correspond le résultat
+# il s'agit de la somme de toutes les valeurs. Je n'ai pas trouvé d'autres moyens d'ajouter
+# toutes les valeurs.
+    result <- sum(x)
+#Return le résultat
+    return(result)
+  }
+  }
+#si les conditions précédentes ne sont pas respectée, la fonction returns NULL
+      else 
+  return(NULL)  
+}
+
+# création de la fonction sum_divided_by
+  sum_divided_by <- function(x,k) {
+#création d'une variable division que l'on va pouvoir appeler dans la fonction my_sum plus tard
+# division divise le vecteur x par le nombre k.
+# le vecteur et le nombre ont été convertis en valeurs numériques grâce à as.numeric
+  division <- as.numeric(x) / as.numeric(k)
+#result est la variable ayant le résultat final: à savoir la somme des divisions.
+# la somme des nouveaux x (les divisions) est faite grâce la fonction my_sum
+  result <- my_sum(division)
+#si x ou k n'est pas numérique  
+  if (!is.numeric(x) | !is.numeric(k)) {
+#la sortie sera NULL    
+    return(NULL)
+  }
+#si x et k sont numériques, la sortie sera la somme des divisions.  
+  else {
+    return(result)
+  }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
