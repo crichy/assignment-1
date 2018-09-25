@@ -43,8 +43,8 @@ sum_column <- function(d, var) {
   if (!is.null(x)){
 # Vérifier que x contient des chiffres 
   if (is.numeric(x)){
-#création de la variable result par défaut. On ajoute le nombre de la case suivante à la case pré-
-#cédente. Le premier résultat: rien n'a été additionné, donc il s'agit de 0
+#création de la variable result par défaut. On ajoute le nombre de la case suivante à la case précédente. 
+#Le premier résultat: rien n'a été additionné, donc il s'agit de 0
   result <- 0
 # Pour chaque case i de x: 
   for (i in x) {
