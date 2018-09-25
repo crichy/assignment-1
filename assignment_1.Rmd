@@ -98,6 +98,11 @@ print(sum_divided_by(iris$Species, 22))
 print(sum_divided_by(iris$Sepal.Length, "Not numeric"))
 print(sum_divided_by(warpbreaks$breaks, -12))
 ```
+```{r}
+print(my_mean(iris$Sepal.Length))
+print(my_mean(iris$Species))
+print(my_mean(warpbreaks$breaks))
+```
 
 
 ## Exercise 4 {#css_id}

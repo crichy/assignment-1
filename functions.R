@@ -43,11 +43,15 @@ sum_column <- function(d, var) {
   if (!is.null(x)){
 # Vérifier que x contient des chiffres 
   if (is.numeric(x)){
-#création de la variable result, dans laquelle on inscrit ce à quoi correspond le résultat
-# il s'agit de la somme de toutes les valeurs. Je n'ai pas trouvé d'autres moyens d'ajouter
-# toutes les valeurs.
-    result <- sum(x)
-#Return le résultat
+#création de la variable result par défaut. On ajoute le nombre de la case suivante à la case pré-
+#cédente. Le premier résultat: rien n'a été additionné, donc il s'agit de 0
+  result <- 0
+# Pour chaque case i de x: 
+  for (i in x) {
+# La variable result devient result additionné au nombre dans le i suivant
+       result <- result + i
+  }
+#Return le résultat mis à jour
     return(result)
   }
   }
@@ -76,7 +80,24 @@ sum_column <- function(d, var) {
   }
   }
   
-  
+
+
+#Création de la fonction my_mean, qui ne prend qu'un argument (x)
+my_mean <- function(x){
+#Comme sum_divided_by divise la somme des x par k, il suffit de remplacer le second argument de
+# sum_divided_by (k) par le nombre d'occurrences de x, à savoir sa longueur.
+result <- sum_divided_by(x,length(x))  
+#Si une valeur n'est pas numérique pour x, le résultat sera NULL
+if (!is.numeric(x)) {
+  return(NULL)
+}
+#sinon, le résultat sera la moyenne.
+else {
+  return(result)
+}
+ 
+}
+
   
   
   
