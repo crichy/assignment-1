@@ -98,6 +98,37 @@ else {
  
 }
 
+
+# Return a violin plot.
+#
+# ARGUMENTS:
+# d: a data frame or tibble
+# var: the name of a column of d containing the dependent variable, provided as a
+#     string
+# grouping_var: the name of a column of d containing a grouping variable,
+#               provided as a string
+#
+# RETURN VALUE:
+# A ggplot plot object containing a violin plot, grouped by the values
+# of the grouping variable.
+#
+grouped_violin_plot <- function(d, var, grouping_var) {
+  # Create the base ggplot object
+p <- ggplot2::ggplot(d, ggplot2::aes_string(y=var, x=grouping_var, fill=grouping_var))
+                                              
+# YOUR CODE HERE: Create a violin plot
+p <- p + ggplot2::geom_violin()
+  
+return(p) 
+}
+
+p <- grouped_violin_plot(iris, "Sepal.Length", "Species")
+# YOUR CODE HERE: Change the colour scheme for the interior of the three violin plots
+#                 to anything else at all.
+# YOUR CODE HERE: Add a main title that says "Iris data".
+print(p)
+
+
   
   
   
