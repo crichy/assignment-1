@@ -123,13 +123,15 @@ return(p)
 }
 
 p <- grouped_violin_plot(iris, "Sepal.Length", "Species")
-# YOUR CODE HERE: Change the colour scheme for the interior of the three violin plots
-#                 to anything else at all.
-# YOUR CODE HERE: Add a main title that says "Iris data".
+# Pour changer les couleurs il faut appeler la fonction "remplissage" de couleurs chargée depuis
+# le package ggplot2, et choisir n'importe quel modèle donné soit dans la rubrique "help" soit
+# dans le tutoriel http://r-statistics.co/Complete-Ggplot2-Tutorial-Part1-With-R-Code.html#5.%20Changing%20the%20color%20and%20size%20of%20points
+p <- p + ggplot2::scale_fill_brewer(palette = "Spectral")
+# Puis on donne un titre grâce à la fonction labs() chargée depuis le même package "Iris data".
+p <- p + ggplot2::labs(title= "Iris data") 
 print(p)
 
 
-  
   
   
   
