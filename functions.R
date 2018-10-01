@@ -147,18 +147,22 @@ print(p)
 difference_in_medians <- function(d, var, grouping_var, group1, group2) {
   d_1 <- dplyr::filter(d, get(grouping_var) == group1)
   d_2 <- dplyr::filter(d, get(grouping_var) == group2)
-  # création d'une boucle qui assigne toutes les valeurs comprises dans d_1 dans une nouvelle
-  #variable qui correspond aux valeurs de "var"
+  #création de nouvelles variables d1_var & d2_var, qui sont des vecteurs qui ont une valeur par
+  #défaut 0, et qui ont un nombre de rangs correspondant à chaque groupe 1 et 2.
+  d1_var <- rep(0, nrow(d_1))
+  d2_var <- rep(0, nrow(d_2))
+  #création de deux boucles identiques qui assignent toutes les valeurs comprises dans notre 
+  #pour chaque rang i dans la colonne var. Nous aurons donc deux groupes: d1_var rempli et
+  #d2_rempli aussi.
+  
   for (i in 1:nrow(d_1)){
-    d1_var <- d_1[i, var]
+    d1_var[i] <- d_1[i, var]
   } 
-  # création de la même boucle que ci-dessus pour le groupe 2, pour assigner à une nouvelle variable
-  # les valeurs de var qui correspondent aux rangs du groupe 2
   # le code marche et trouve les bons résultats, mais il n'y a pas le message warning.
   for (i in 1:nrow(d_2)){
-  d2_var <- d_2[i, var]
+  d2_var[i] <- d_2[i, var]
   }
-  result <- median(d1_var) - median(d2_var)
+  result<- median(d1_var) - median(d2_var)
   return(result)
 }
   
