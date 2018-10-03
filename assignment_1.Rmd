@@ -178,11 +178,10 @@ set.seed(previous_seed)
 ```
 ```{r}
 ptest_d <- tibble::as_tibble(ptest["permuted"])
-# YOUR CODE HERE: plot a histogram with a vertical line at the observed value
+# création de l'histogramme partant des données ptest_d.
 ptest_hist <- ggplot2::ggplot(data=ptest_d, ggplot2::aes(ptest_d$permuted)) + ggplot2::geom_histogram()
+# ajout de la ligne à l'intercept de x. Par contre, je n'ai aucune idée de la signification.
 ptest_hist <- ptest_hist + ggplot2::geom_vline(xintercept = -0.2)
-#ptest_d2 <- tibble::as_tibble(ptest["observed"])
-#ptest_hist2 <- ptest_hist + ggplot2::geom_vline(xintercept = "0.02")
 print(ptest_hist)
 
 ```
