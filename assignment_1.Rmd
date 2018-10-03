@@ -77,6 +77,7 @@ http://r4ds.had.co.nz/tibbles.html
 
 ## Exercise 3 {#css_id}
 
+##### Sub-exercise 3-a:
 
 ```{r}
 source("functions.R")
@@ -85,13 +86,13 @@ print(sum_column(iris, "Sepal.Length"))
 print(sum_column(iris, "Species"))
 print(sum_column(warpbreaks, "breaks"))
 ```
-
+##### Sub-exercise 3-b:
 ```{r}
 print(my_sum(iris$Sepal.Length))
 print(my_sum(iris$Species))
 print(my_sum(warpbreaks$breaks))
 ```
-
+##### Sub-exercise 3-c:
 ```{r}
 print(sum_divided_by(iris$Sepal.Length, 12))
 print(sum_divided_by(iris$Species, 22))
@@ -107,17 +108,24 @@ print(my_mean(warpbreaks$breaks))
 
 ## Exercise 4 {#css_id}
 
+##### Sub-exercise 4-a :
 ```{r}
 print(grouped_violin_plot(iris, "Sepal.Length", "Species"))
 ```
+##### Sub-exercise 4-b:
 
+voir feuille fonction
 
 ## Exercise 5 {#css_id}
+
+##### Sub-exercise 5-a:
 
 ```{r}
 difference_in_medians(iris, "Sepal.Width", "Species", "versicolor", "virginica")
 difference_in_medians(iris, "Sepal.Width", "Species", "virginica", "virginica")
 ```
+
+##### Sub-exercise 5-b :
 
 ```{r}
 iris$Sepal.Width[1:10]
@@ -130,6 +138,9 @@ randomize(iris, "Species")$Sepal.Width[1:10]
 set.seed(previous_seed)
 
 ```
+
+##### Sub-exercise 5-c: 
+
 ```{r}
 if(!exists(".Random.seed")) set.seed(NULL)
 previous_seed <- .Random.seed
@@ -147,5 +158,31 @@ print(ptest_3)
 print(ptest_3$observed)
 print(ptest_3[["observed"]])
 
+```
+
+##### Sub-exercise 5-d:
+
+Dans ce cas précis, si on applique la permutation à la colonne grouping_var, on n'obtient pas les mêmes résultats. Je fais l'hypothèse que ceci est dû au fait que dans notre fonction randomize et difference_in_median, nous avons travaillé sur la colonne var directement. 
+En revanche, d'un point de vue général, je ne comprends pas pourquoi cela pose un problème, puisque lorsque l'on permute une colonne, il s'agit de la globalité du data frame qui est permuté, puisque chaque rang (les valeurs) est lié à toutes les colonnes.
+De ce fait, les valeurs de la colonne var, lors de la permutation, ne sont pas liées à d'autres valeurs des autres colonnes.
+
+##### Sub-exercise 5-e:
+
+```{r, cache=T}
+if(!exists(".Random.seed")) set.seed(NULL)
+previous_seed <- .Random.seed
+set.seed(1)
+ptest <- permutation_twogroups(iris, "Sepal.Width", "Species", "versicolor",
+                              "virginica", difference_in_medians)
+set.seed(previous_seed)
+```
+```{r}
+ptest_d <- tibble::as_tibble(ptest["permuted"])
+# YOUR CODE HERE: plot a histogram with a vertical line at the observed value
+ptest_hist <- ggplot2::ggplot(data=ptest_d, ggplot2::aes(ptest_d$permuted)) + ggplot2::geom_histogram()
+#ggplot2::geom_vline(xintercept = observed_statistic)
+print(ptest_hist)
+#ptest_hist <- ggplot2::qplot(ptest_d$permuted, geom="histogram")
+#print(ptest_hist)
 ```
 

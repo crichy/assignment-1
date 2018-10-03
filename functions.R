@@ -149,6 +149,11 @@ difference_in_medians <- function(d, var, grouping_var, group1, group2) {
   d_2 <- dplyr::filter(d, get(grouping_var) == group2)
   #création de nouvelles variables d1_var & d2_var, qui sont des vecteurs qui ont une valeur par
   #défaut 0, et qui ont un nombre de rangs correspondant à chaque groupe 1 et 2.
+  #je me suis inspirée de la fonction qui suit. Au départ, j'avais seulement assigné ces variables
+  # dans les deux boucles for, ce qui donnait aussi le bon résultat.
+  # mais en runnant la fonction ci-après, je ne trouvais jamais les bons résultats.
+  # J'ai alors réalisé que "d1_var <- d_1[i, var]" n'allait conservé que le dernier résultat 
+  #de la boucle, et non toutes les valeurs, et donc que le bon résultat obtenu était un hasard.
   d1_var <- rep(0, nrow(d_1))
   d2_var <- rep(0, nrow(d_2))
   #création de deux boucles identiques qui assignent toutes les valeurs comprises dans notre 
@@ -178,7 +183,11 @@ difference_in_medians <- function(d, var, grouping_var, group1, group2) {
 # var permuted randomly.
 #
 randomize <- function(d, var) {
-  n <- nrow(d[[var]])
+# on crée une randomisation grâce à la fonction sample, où l'on accède au contenu de la colonne
+#var du data frame d. 
+# Pour être honnête, je ne suis pas sûre de pourquoi replace = F. J'avais d'abord essayé 
+#replace = T, et je ne trouvais pas les mêmes permutations.
+# J'ai donc mis F, puis cela a fonctionné. Je suppose donc que la permutation n'a lieu qu'une fois.
   d[[var]] <- sample(d[[var]], replace = F)
     return(d) 
   }
@@ -216,7 +225,10 @@ permutation_twogroups <- function(d, var, grouping_var, group1, group2, statisti
     # YOUR CODE HERE: use randomize(...) to create a permutation and then
     #                 fill in the vector permutation_statistics with the
     #                 value of statistic(...) for this new permutation
-  new_d <- randomize(d, var)  
+  # on crée une variable qui met à jour le data frame d permuté, et on lui assigne la fonction
+    # de permutation
+  new_d <- randomize(d, var)
+  #on indexe [i] à la fonction statistic afin que la boucle for s'applique à chaque rang 
   permutation_statistics[i] <- statistic(new_d, var, grouping_var, group1, group2)
   }
   result <- list(observed=observed_statistic,
