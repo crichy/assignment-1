@@ -168,7 +168,7 @@ De ce fait, les valeurs de la colonne var, lors de la permutation, ne sont pas l
 
 ##### Sub-exercise 5-e:
 
-```{r, cache=T}
+```{r, cache= T}
 if(!exists(".Random.seed")) set.seed(NULL)
 previous_seed <- .Random.seed
 set.seed(1)
@@ -180,9 +180,10 @@ set.seed(previous_seed)
 ptest_d <- tibble::as_tibble(ptest["permuted"])
 # YOUR CODE HERE: plot a histogram with a vertical line at the observed value
 ptest_hist <- ggplot2::ggplot(data=ptest_d, ggplot2::aes(ptest_d$permuted)) + ggplot2::geom_histogram()
-#ggplot2::geom_vline(xintercept = observed_statistic)
+ptest_hist <- ptest_hist + ggplot2::geom_vline(xintercept = -0.2)
+#ptest_d2 <- tibble::as_tibble(ptest["observed"])
+#ptest_hist2 <- ptest_hist + ggplot2::geom_vline(xintercept = "0.02")
 print(ptest_hist)
-#ptest_hist <- ggplot2::qplot(ptest_d$permuted, geom="histogram")
-#print(ptest_hist)
+
 ```
 
